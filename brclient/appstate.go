@@ -537,6 +537,9 @@ func (as *appState) trackLNBalances() {
 }
 
 func (as *appState) trackLNChannelEvents() {
+	if as.lnRPC == nil {
+    		return
+    }
 	chanEvents, err := as.lnRPC.SubscribeChannelEvents(as.ctx, &lnrpc.ChannelEventSubscription{})
 	if err != nil {
 		as.log.Errorf("Unable to track channel events: %v")
